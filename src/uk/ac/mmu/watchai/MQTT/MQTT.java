@@ -17,6 +17,9 @@ import com.phidgets.PhidgetException;
 
 import uk.ac.mmu.watchai.Model.Thing;
 import uk.ac.mmu.watchai.Model.UserUtils;
+import uk.ac.mmu.watchai.Sensors.Light;
+import uk.ac.mmu.watchai.Sensors.Temperature;
+import uk.ac.mmu.watchai.Sensors.Vibration;
 import uk.ac.mmu.watchai.Things.Lights;
 import uk.ac.mmu.watchai.Things.Lock;
 import uk.ac.mmu.watchai.Things.Music;
@@ -24,7 +27,7 @@ import uk.ac.mmu.watchai.Things.Store;
 
 public class MQTT {
 
-	 public void startMQTT() throws PhidgetException {
+	 public void startMQTT(String[] args) throws PhidgetException {
 		 
 		 UserUtils uu = new UserUtils();
 		 
@@ -51,13 +54,27 @@ public class MQTT {
 		    Lock lock = new Lock();
 		    
 		    AdvancedServoPhidget servo = new AdvancedServoPhidget();
+		    
 		    lock.attachListener(servo);
 		    
 		    Lights li = new Lights();
-			InterfaceKitPhidget led = new InterfaceKitPhidget();
-			li.attachListener(led);
+			InterfaceKitPhidget ifk = new InterfaceKitPhidget();
+			li.attachListener(ifk);
 			
 			Music music = new Music();
+			
+			Light lightSensor = new Light();
+			Temperature tempSensor = new Temperature();
+			Vibration vibSensor = new Vibration();
+			
+			String vibration = "Vibration";
+			String lightMon = "LightMonitor";
+			String tempMon = "Temperature";
+			String on = "On";
+			String off = "Off";
+			String locked = "Locked";
+			String unlocked = "Unlocked";
+         	  
 			
 		    
 	         MemoryPersistence persistence = new MemoryPersistence();
@@ -71,7 +88,9 @@ public class MQTT {
 	            	 * If topic contains music: 
 	            	 */
 	            	 
-	            	
+	            	 
+	            	 
+	            	//Light.main(args); 
 	            	 
 	            	 String message = new String(msg.getPayload());
 	            	if(message.contains("Genius")){
@@ -84,7 +103,28 @@ public class MQTT {
 	            		 music.playSound("rhyme");
 	            	 }if(message.contains("Stop")){
 	            		 music.stopMusic();
-	            	 }
+	            	 }if(message.equals(locked)){
+                    	  System.out.println(locked);
+                    	  lock.lock(servo);
+                    	  li.turnOffAll(ifk);
+                     }if(message.equals(unlocked)){
+                    	  System.out.println(unlocked);
+                    	  lock.unlock(servo);
+                    	  li.turnOnAll(ifk);
+                     }if(topic.contains(lightMon) &&  message.contains(on)){
+                    	 lightSensor.turnOn(ifk);
+                     }if(topic.contains(lightMon) &&  message.contains(off)){
+                    	 lightSensor.turnOff(ifk);
+                     }if(topic.contains(vibration) && message.contains(on)){
+                    	 vibSensor.turnOn(ifk);
+                    	
+                     }if(topic.contains(vibration) && message.contains(off)){
+                    	 vibSensor.turnOff(ifk);
+                    	// mqttClient.publish(topic, new MqttMessage(off.getBytes()));
+                     }if(topic.contains(tempMon) && message.contains("Get")){
+                    	 tempSensor.getTemp(ifk);
+                    	
+                     }
 	            	
 	            	 System.out.println(topic + " this is the msg: " + message);
 	            	 
@@ -93,16 +133,8 @@ public class MQTT {
 	                           System.out.println("Recived:" + new String(msg.getPayload()));
 	                           
 	                          // String mssg = new String(msg.getPayload());
-	                           if(message.equals("Locked")){
-	                         	  System.out.println("Locked");
-	                         	  lock.lock(servo);
-	                         	  li.turnOffAll(led);
-	                           }else if(message.equals("Unlocked")){
-	                         	  System.out.println("Unlocked");
-	                         	  lock.unlock(servo);
-	                         	  li.turnOnAll(led);
-	                          
-             }}
+	                           
+	                           }
 
 	             public void deliveryComplete(IMqttDeliveryToken arg0) {
 	                         System.out.println("Delivary complete");
@@ -141,5 +173,10 @@ public class MQTT {
 	           me.printStackTrace();
 	         }
 	      
+	    	 
+	    	 
+	         
 }
+	 
+
 }

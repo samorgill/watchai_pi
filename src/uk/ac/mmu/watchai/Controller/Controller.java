@@ -21,6 +21,7 @@ import uk.ac.mmu.watchai.Model.UserUtils;
 import uk.ac.mmu.watchai.Model.Thing;
 import uk.ac.mmu.watchai.Model.User;
 import uk.ac.mmu.watchai.Registration.Broadcast;
+import uk.ac.mmu.watchai.Sensors.Light;
 import uk.ac.mmu.watchai.Things.Lights;
 import uk.ac.mmu.watchai.Things.Lock;
 import uk.ac.mmu.watchai.Things.Music;
@@ -62,12 +63,14 @@ public class Controller {
 	  */
 	  //Turns on lights depending if it gets dark
 	  //Lights li = new Lights();
-	  
-	  //li.turnOn(args);
-	  //li.emergencyLight();
+	 // li.turnOn(args);
+	//  li.emergencyLight();
 	  //li.soothingLights();	
 	  //li.partyLights();
 	 
+	  /*Light li = new Light();
+	  
+	  li.turnOn(args);*/
 	  
 	//Servo tester
 	  /*Lock lo = new Lock();
@@ -91,15 +94,19 @@ public class Controller {
 	  		mu.playSound(choice);
 */	  
 	  
-	 
+	/* 
 	  ArrayList<Thing> aList = new ArrayList<Thing>();
 	  aList = Store.getAllList();
 	  for(int i = 0; i < aList.size(); i++){
 		  System.out.println("Contr array test " + aList.get(i));
 	  }
 	  
+	  */
 	 MQTT mqtt = new MQTT();
-	  mqtt.startMQTT();
+	  mqtt.startMQTT(args);
+	
+	 /* Light lightSensor = new Light();
+	  lightSensor.turnOn();*/
 	  
 	  /*Lock lo = new Lock();
 		  lo.locks(args);
@@ -114,6 +121,17 @@ public class Controller {
 		 */
 		  /*lo.lock(servo);
 		  lo.unlock(servo);*/
+	  
+	  /**
+	   * Setting sensors running
+	   */
+	  
+	  //Light Sensor
+	  
+
+	  
+	  
+	  
 	  
 	  
 }

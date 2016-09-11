@@ -41,7 +41,7 @@ public class Lock {
 		
 
 		servo.openAny();
-		System.out.println("waiting for AdvancedServo attachment...");
+		System.out.println("Waiting for AdvancedServo attachment...");
 		servo.waitForAttachment();
 
 		System.out.println("Serial: " + servo.getSerialNumber());
@@ -66,7 +66,7 @@ public class Lock {
 	 */
 	public void lock(AdvancedServoPhidget servo) throws PhidgetException{
 		final int MOTOR_PORT=0;
-		
+			servo.setEngaged(0, true);
 			servo.setSpeedRampingOn(0, true);
 			servo.setAcceleration(0,servo.getAccelerationMin(0));
 			servo.setAcceleration(0, 100000);
@@ -82,7 +82,7 @@ public class Lock {
 	 */
 	public void unlock(AdvancedServoPhidget servo) throws PhidgetException{
 		final int MOTOR_PORT=0;
-			
+		servo.setEngaged(0, true);	
 		servo.setSpeedRampingOn(0, true);
         servo.setAcceleration(0,servo.getAccelerationMin(0));
         servo.setAcceleration(0, 100000);
@@ -111,8 +111,10 @@ public class Lock {
 			}
 		});
 		servo.openAny();
-		System.out.println("waiting for AdvancedServo attachment...");
+		System.out.println("Now waiting for AdvancedServo attachment...");
 		servo.waitForAttachment();
+		
+		servo.setPosition(0, 10);
 	}
 
 }
