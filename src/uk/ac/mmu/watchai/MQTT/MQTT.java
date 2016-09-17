@@ -68,12 +68,19 @@ public class MQTT {
 			Vibration vibSensor = new Vibration();
 			
 			String vibration = "Vibration";
-			String lightMon = "LightMonitor";
+			String lightMon = "Luminosity";
 			String tempMon = "Temperature";
+			String recipe = "Recipe";
+			String msc = "Music";
 			String on = "On";
 			String off = "Off";
 			String locked = "Locked";
 			String unlocked = "Unlocked";
+			String sleep = "sleep";
+			String wake = "wake";
+			String sooth = "sooth";
+			String entertain = "entertain";
+			String emergency = "emergency";
          	  
 			
 		    
@@ -93,15 +100,17 @@ public class MQTT {
 	            	//Light.main(args); 
 	            	 
 	            	 String message = new String(msg.getPayload());
-	            	if(message.contains("Genius")){
+	            	 
+	            	 
+	            	if(topic.contains(msc) && message.contains("Genius")){
 	            		 music.playSound("genius");
-	            	 }if(message.contains("Sleep")){
+	            	 }if(topic.contains(msc) && message.contains("Sleep")){
 	            		 music.playSound("sleep");
-	            	 }if(message.contains("Party")){
+	            	 }if(topic.contains(msc) && message.contains("Party")){
 	            		 music.playSound("party");
-	            	 }if(message.contains("Rhyme")){
+	            	 }if(topic.contains(msc) && message.contains("Rhyme")){
 	            		 music.playSound("rhyme");
-	            	 }if(message.contains("Stop")){
+	            	 }if(topic.contains(msc) && message.contains("Stop")){
 	            		 music.stopMusic();
 	            	 }if(message.equals(locked)){
                     	  System.out.println(locked);
@@ -117,13 +126,27 @@ public class MQTT {
                     	 lightSensor.turnOff(ifk);
                      }if(topic.contains(vibration) && message.contains(on)){
                     	 vibSensor.turnOn(ifk);
-                    	
                      }if(topic.contains(vibration) && message.contains(off)){
                     	 vibSensor.turnOff(ifk);
                     	// mqttClient.publish(topic, new MqttMessage(off.getBytes()));
-                     }if(topic.contains(tempMon) && message.contains("Get")){
-                    	 tempSensor.getTemp(ifk);
-                    	
+                     }if(topic.contains(tempMon) && message.contains(on)){
+                    	 tempSensor.getTemp(ifk);       	
+                     }if(topic.contains(recipe) && message.contains(sleep)){
+                    	 music.playSound(sleep);
+                    	 li.soothingLights();
+                    	 lock.lock(servo);
+                     }if(topic.contains(recipe) && message.contains(wake)){
+                    	 music.playSound("genius");
+                    	 lock.unlock(servo);
+                     }if(topic.contains(recipe) && message.contains(sooth)){
+                    	 music.playSound("genius");
+                    	 li.soothingLights();
+                     }if(topic.contains(recipe) && message.contains(entertain)){
+                    	 music.playSound("rhyme");
+                    	 li.partyLights();
+                     }if(topic.contains(recipe) && message.contains(emergency)){
+                    	 li.emergencyLight();
+              
                      }
 	            	
 	            	 System.out.println(topic + " this is the msg: " + message);
