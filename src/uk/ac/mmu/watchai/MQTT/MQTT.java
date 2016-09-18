@@ -81,6 +81,7 @@ public class MQTT {
 			String sooth = "sooth";
 			String entertain = "entertain";
 			String emergency = "emergency";
+			
          	  
 			
 		    
@@ -145,7 +146,7 @@ public class MQTT {
                     	 music.playSound("rhyme");
                     	 li.partyLights();
                      }if(topic.contains(recipe) && message.contains(emergency)){
-                    	 li.emergencyLight();
+                    	 li.emergencyLight(ifk);
               
                      }
 	            	

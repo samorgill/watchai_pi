@@ -83,14 +83,14 @@ public class Lights {
 	  * @throws InterruptedException
 	  */
   
-  	public void emergencyLight() throws PhidgetException, InterruptedException{
-  		InterfaceKitPhidget led = new InterfaceKitPhidget();
-  		attachListener(led);
+  	public void emergencyLight(InterfaceKitPhidget ifk) throws PhidgetException, InterruptedException{
+  		//InterfaceKitPhidget led = new InterfaceKitPhidget();
+  		attachListener(ifk);
   		
   		for(int i = 0; i < 30; i++){
-  		turnOnRed(led);
+  		turnOnRed(ifk);
   		Thread.sleep(500);
-  		turnOffRed(led);
+  		turnOffRed(ifk);
   		Thread.sleep(500);
   		}
   		
@@ -287,4 +287,6 @@ public class Lights {
 		
 		
 	}
+
+	
 }

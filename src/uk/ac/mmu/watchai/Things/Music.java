@@ -46,6 +46,7 @@ public class Music {
 		//play.setFile(file);
 		play.setMp3(mplay);
 		
+		
 	}
 	
 	/**
@@ -58,6 +59,7 @@ public class Music {
 		
 		
 		MP3Player mp3 = play.getMp3();
+		
 		
 		mp3.stop();
 		
