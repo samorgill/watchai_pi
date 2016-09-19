@@ -25,7 +25,7 @@ import uk.ac.mmu.watchai.Things.Lock;
 import uk.ac.mmu.watchai.Things.Music;
 import uk.ac.mmu.watchai.Things.Store;
 
-public class MQTT {
+public class MQTT_Local {
 
 	 public void startMQTT(String[] args) throws PhidgetException {
 		 
@@ -44,14 +44,14 @@ public class MQTT {
 		    String topic        = username + "/#"; 
 		    String content      = "Hello there from CloudMQTT";
 		    int qos             = 1;
-		//    String broker       = "tcp://192.168.0.19:1883";
-		 String broker       = "tcp://m21.cloudmqtt.com:17781";
+		    String broker       = "tcp://192.168.0.19:1883";
+		 // String broker       = "tcp://m21.cloudmqtt.com:17781";
 		    //MQTT client id to use for the device. "" will generate a client id automatically
 		    String clientId     = "CloudSample";
 
 		    
 		    
-		    /*Lock lock = new Lock();
+		    Lock lock = new Lock();
 		    
 		    AdvancedServoPhidget servo = new AdvancedServoPhidget();
 		    
@@ -66,7 +66,7 @@ public class MQTT {
 			Light lightSensor = new Light();
 			Temperature tempSensor = new Temperature();
 			Vibration vibSensor = new Vibration();
-			*/
+			
 			String vibration = "Vibration";
 			String lightMon = "Luminosity";
 			String tempMon = "Temperature";
@@ -82,7 +82,8 @@ public class MQTT {
 			String entertain = "entertain";
 			String emergency = "emergency";
 			
-			Music music = new Music();
+         	  
+			
 		    
 	         MemoryPersistence persistence = new MemoryPersistence();
 	         try {
@@ -95,21 +96,9 @@ public class MQTT {
 	            	 * If topic contains music: 
 	            	 */
 	            	 
-	            	 String message = new String(msg.getPayload());
-	            	 
-	            	 if(topic.contains(recipe) && message.contains(sooth)){
-                    	 music.playSound("genius");
-                    	 
-                     }if(topic.contains(recipe) && message.contains(entertain)){
-                    	 music.playSound("rhyme");
-                    	 
-                     }if(message.contains("stop")){
-                    	 music.stopMusic();
-                     }
 	            	 
 	            	 
-	            	 
-	        /*    	//Light.main(args); 
+	            	//Light.main(args); 
 	            	 
 	            	 String message = new String(msg.getPayload());
 	            	 
@@ -162,7 +151,7 @@ public class MQTT {
                      }
 	            	
 	            	 System.out.println(topic + " this is the msg: " + message);
-*/	            	 
+	            	 
 	            	 
 	                           System.out.println("Recived:" + topic);
 	                           System.out.println("Recived:" + new String(msg.getPayload()));
@@ -184,8 +173,8 @@ public class MQTT {
 	           
 	           MqttConnectOptions connOpts = new MqttConnectOptions();
 	           connOpts.setCleanSession(true);
-	          connOpts.setUserName("xcihlzki");
-	           connOpts.setPassword(new char[]{'7', 'w', 'p', 'h', '1', 'k', 'J', 'E', 'R', '7', 'X', 'h'});
+	           /*connOpts.setUserName("xcihlzki");
+	           connOpts.setPassword(new char[]{'7', 'w', 'p', 'h', '1', 'k', 'J', 'E', 'R', '7', 'X', 'h'});*/
 	          /* connOpts.setUserName("samo");
 	           connOpts.setPassword(new char[]{'a', 't', 'h', 'c', 'l', 'i', 'a', 't', 'h', '8'});*/
 	           mqttClient.connect(connOpts);
