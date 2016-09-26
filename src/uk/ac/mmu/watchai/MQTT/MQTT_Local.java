@@ -30,26 +30,20 @@ public class MQTT_Local {
 	 public void startMQTT(String[] args) throws PhidgetException {
 		 
 		 UserUtils uu = new UserUtils();
-		 
-
-		  String username = null;
-		try {
+		 String username = null;
+		
+		 try {
 			username = uu.getUser();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		  System.out.println("MQTT un: " + username);
+		  System.out.println("MQTT: " + username);
 		 	
 		    String topic        = username + "/#"; 
-		    String content      = "Hello there from CloudMQTT";
+		    String content      = "Hello from your Watchai Hub";
 		    int qos             = 1;
 		    String broker       = "tcp://192.168.0.19:1883";
-		 // String broker       = "tcp://m21.cloudmqtt.com:17781";
-		    //MQTT client id to use for the device. "" will generate a client id automatically
-		    String clientId     = "CloudSample";
-
-		    
+		    String clientId     = "Watchai_Hub_Local";   
 		    
 		    Lock lock = new Lock();
 		    
@@ -134,17 +128,17 @@ public class MQTT_Local {
                     	 tempSensor.getTemp(ifk);       	
                      }if(topic.contains(recipe) && message.contains(sleep)){
                     	 music.playSound(sleep);
-                    	 li.soothingLights();
+                    	 li.soothingLights(ifk);
                     	 lock.lock(servo);
                      }if(topic.contains(recipe) && message.contains(wake)){
                     	 music.playSound("genius");
                     	 lock.unlock(servo);
                      }if(topic.contains(recipe) && message.contains(sooth)){
                     	 music.playSound("genius");
-                    	 li.soothingLights();
+                    	 li.soothingLights(ifk);
                      }if(topic.contains(recipe) && message.contains(entertain)){
                     	 music.playSound("rhyme");
-                    	 li.partyLights();
+                    	 li.partyLights(ifk);
                      }if(topic.contains(recipe) && message.contains(emergency)){
                     	 li.emergencyLight(ifk);
               

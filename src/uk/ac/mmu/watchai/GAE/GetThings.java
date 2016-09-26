@@ -1,6 +1,4 @@
 package uk.ac.mmu.watchai.GAE;
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,99 +11,30 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import uk.ac.mmu.watchai.Controller.EasyScanner;
 import uk.ac.mmu.watchai.Model.Thing;
 import uk.ac.mmu.watchai.Model.UserUtils;
 import uk.ac.mmu.watchai.Things.Store;
 
+
 public class GetThings {
 
 	public static String serverURL =
-            "http://2-dot-projectbabywatch.appspot.com/";
+            "http://3-dot-projectbabywatch.appspot.com/";
 	
-	UserUtils uu = new UserUtils();
 	
-	private String usrName;
-	//private Store st;	
-	
-		
-	/*
-		public void getAllDB(){
-			
-		
-        
-		usrName = "JimHome";
-			
-		System.out.println("Gettings things...");
-		
-		JSONObject jObject = new JSONObject();
- 
-        String fullURLStr = serverURL + "GetAllThings?user3=" + usrName;
-        System.out.println("GetAll url" + fullURLStr);
-        JSONArray jArray = getFromServer(fullURLStr);
-
-       String thing, state, serial, type, zone, room, topic;
-
-        try {
-            for (int i = 0; i < jArray.length(); i++) {
-                jObject = jArray.getJSONObject(i);
-                
-                //Thing aThing = new Thing("", "", "", "", "", "", "");
-
-                    thing = jObject.get("thing").toString();
-                    state = jObject.get("state").toString();
-                    serial = jObject.get("serial").toString();
-                    type = jObject.get("type").toString();
-                    zone = jObject.get("zone").toString();
-                    room = jObject.get("room").toString();
-
-                   aThing.setThing(thing);
-                   aThing.setState(state);
-                   aThing.setSerial(serial);
-                   aThing.setType(type);
-                   aThing.setZone(zone);
-                   aThing.setRoom(room);
-                   aThing.setTopic(usrName+"/"+type+"/"+zone+"/"+room+"/"+thing);
-                   
-                    
-                    topic = usrName+"/"+type+"/"+zone+"/"+room+"/"+thing;
-                   
-                   Thing thin = new Thing(thing, state, serial, type, zone, room, topic);
-                   
-                    store.add(thin);
-                   
-                   
-                   System.out.println("GetThings adding to Store : " + thin );
-                    
-                
-
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-		
-		}
-*/		
-	
-	 public void getDB(){
+	 public void getDB() throws IOException{
 		  
 
 		  String serverURL =
-		            "http://2-dot-projectbabywatch.appspot.com/";
+		            "http://3-dot-projectbabywatch.appspot.com/";
 			
 			UserUtils uu = new UserUtils();
 			
-			String usrName;
+			String usrName = uu.getUser();
 		  
 		  Store st = new Store();
 		   
-		  /*
-		  String ans;
-		  System.out.println("Would you like to print the array?");
-		  
-		  ans = EasyScanner.nextString();
-*/
-			usrName = "JimHome";
+			//usrName = "SamHome";
 				
 			System.out.println("Gettings things...");
 			
@@ -121,7 +50,7 @@ public class GetThings {
 	          for (int i = 0; i < jArray.length(); i++) {
 	              jObject = jArray.getJSONObject(i);
 	              
-	              //Thing aThing = new Thing("", "", "", "", "", "", "");
+	              
 
 	                  thing = jObject.get("thing").toString();
 	                  state = jObject.get("state").toString();
@@ -130,33 +59,17 @@ public class GetThings {
 	                  zone = jObject.get("zone").toString();
 	                  room = jObject.get("room").toString();
 
-	                 /*aThing.setThing(thing);
-	                 aThing.setState(state);
-	                 aThing.setSerial(serial);
-	                 aThing.setType(type);
-	                 aThing.setZone(zone);
-	                 aThing.setRoom(room);
-	                 aThing.setTopic(usrName+"/"+type+"/"+zone+"/"+room+"/"+thing);
-	                 */
 	                  
 	                  topic = usrName+"/"+type+"/"+zone+"/"+room+"/"+thing;
 	                 
 	                 Thing thin = new Thing(thing, state, serial, type, zone, room, topic);
 	                 
 	                  st.add(thin);
-	                 
-	                 
-	                 //System.out.println("GetThings adding to Store : " + thin );
-	                  
-	              
-
+	            
 	          }
 	      } catch (Exception e){
 	          e.printStackTrace();
 	      }
-
-	     //st.getAll();
-	      
 		  
 	  }
 	
@@ -167,7 +80,6 @@ public class GetThings {
 	        String line = "";
 	        String result = "";
 	        String stat ="";
-	        //String urlStr = "http://projectbabywatch.appspot.com/GetAllDoors";
 	        JSONObject jObject = new JSONObject();
 	        JSONObject jOb = new JSONObject();
 	        JSONArray jArray = new JSONArray();

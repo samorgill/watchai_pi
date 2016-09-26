@@ -101,19 +101,19 @@ public class Lights {
   	 * @throws PhidgetException
   	 * @throws InterruptedException 
   	 */
-  	public void soothingLights() throws PhidgetException, InterruptedException{
-  		InterfaceKitPhidget led = new InterfaceKitPhidget();
-  		attachListener(led);
+  	public void soothingLights(InterfaceKitPhidget ifk) throws PhidgetException, InterruptedException{
+  		
+  		attachListener(ifk);
   		
   		for(int i = 0; i < 30; i++){
-  	  		turnOnRed(led);
+  	  		turnOnRed(ifk);
   	  		Thread.sleep(1000);
-  	  		turnOnGreen(led);
+  	  		turnOnGreen(ifk);
   	  		Thread.sleep(1000);
-  	  		turnOffRed(led);
+  	  		turnOffRed(ifk);
 	  		Thread.sleep(2000);
-	  		turnOffGreen(led);
-	  		turnOnRed(led);
+	  		turnOffGreen(ifk);
+	  		turnOnRed(ifk);
 	  		Thread.sleep(2000);
   	  		}
   		
@@ -125,54 +125,53 @@ public class Lights {
   	 * @throws InterruptedException
   	 */
   	
-	public void partyLights() throws PhidgetException, InterruptedException{
-  		InterfaceKitPhidget led = new InterfaceKitPhidget();
-  		attachListener(led);
-  		turnOffAll(led);
+	public void partyLights(InterfaceKitPhidget ifk) throws PhidgetException, InterruptedException{
+		
+  		attachListener(ifk);
+  		turnOffAll(ifk);
   		for(int i = 0; i < 5; i++){
-  	  		turnOnRed(led);
-  	  		turnOnGreen(led);
+  	  		turnOnRed(ifk);
+  	  		turnOnGreen(ifk);
   	  		Thread.sleep(100);
-  	  		turnOffGreen(led);
+  	  		turnOffGreen(ifk);
   	  		Thread.sleep(100);
-  	  		turnOffRed(led);	
+  	  		turnOffRed(ifk);	
   	  		Thread.sleep(200);
-  	  		turnOffGreen(led);
-	  		turnOnRed(led);
+  	  		turnOffGreen(ifk);
+	  		turnOnRed(ifk);
 	  		Thread.sleep(100);
-	  		turnOnGreen(led);
+	  		turnOnGreen(ifk);
 	  		Thread.sleep(400);
-	  		turnOffGreen(led);
-	  		turnOffRed(led);
+	  		turnOffGreen(ifk);
+	  		turnOffRed(ifk);
 	  		Thread.sleep(300);
-	  		turnOnRed(led);
+	  		turnOnRed(ifk);
 	  		Thread.sleep(200);
-	  		turnOffRed(led);
+	  		turnOffRed(ifk);
 	  		Thread.sleep(250);
-	  		turnOnRed(led);
-	  		turnOnGreen(led);
+	  		turnOnRed(ifk);
+	  		turnOnGreen(ifk);
 	  		Thread.sleep(200);
-	  		turnOffRed(led);
+	  		turnOffRed(ifk);
 	  		Thread.sleep(200);
-	  		turnOffGreen(led);
+	  		turnOffGreen(ifk);
 	  		Thread.sleep(300);
-	  		turnOnGreen(led);
+	  		turnOnGreen(ifk);
 	  		Thread.sleep(200);
-	  		turnOffGreen(led);
+	  		turnOffGreen(ifk);
 	  		Thread.sleep(200);
-	  		turnOnGreen(led);
-	  		turnOnRed(led);
+	  		turnOnGreen(ifk);
+	  		turnOnRed(ifk);
 	  		Thread.sleep(200);
-	  		turnOnGreen(led);
+	  		turnOnGreen(ifk);
 	  		Thread.sleep(300);
-	  		turnOffRed(led);
+	  		turnOffRed(ifk);
 	  		Thread.sleep(200);
 
   	  		}
   		
-  		turnOffAll(led);
-  	}
-  	
+  		turnOffAll(ifk);
+  	}  	
   	/**
   	 * A method for setting the attachment listener 
   	 * @param led
