@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 /**
  * @author Samuel Orgill 15118305
- * A Scanner class to make console logging easier.
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * A Scanner class to make console logging & unit testing easier.
  */
 
 public class EasyScanner {

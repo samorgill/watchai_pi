@@ -12,6 +12,16 @@ import javax.sound.sampled.Clip;
 
 import com.phidgets.PhidgetException;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * Class for playing music
+ *
+ */
+
 public class Music {
 
 	String path = "music/";
@@ -21,19 +31,17 @@ public class Music {
 		// TODO Auto-generated method stub
 
 		MP3Player mplay = null;
-		
 		String myChoice = choice;
-		
 		playMusic(mplay, myChoice);
-		
-		/*if(myChoice != "stop"){
-		playMusic(mplay, myChoice);
-		} else if(myChoice.equals("stop")){
-			stopMusic(mplay);
-		}*/
 			
 	}
 	
+	/**
+	 * Method to play music
+	 * @param mp3
+	 * @param myChoice
+	 * @throws InterruptedException
+	 */
 	public void playMusic(MP3Player mp3, String myChoice) throws InterruptedException {
 	
 		File file = new File (path + myChoice + ".mp3");
@@ -42,10 +50,8 @@ public class Music {
 		
 		mplay.play();
 		
-		
 		//play.setFile(file);
 		play.setMp3(mplay);
-		
 		
 	}
 	
@@ -57,9 +63,7 @@ public class Music {
 	
 	public void stopMusic() throws PhidgetException, InterruptedException {
 		
-		
 		MP3Player mp3 = play.getMp3();
-		
 		
 		mp3.stop();
 		

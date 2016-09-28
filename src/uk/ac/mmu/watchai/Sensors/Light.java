@@ -16,13 +16,22 @@ import com.phidgets.event.SensorChangeListener;
 
 import uk.ac.mmu.watchai.Things.Lights;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * Class for monitoring luminosity
+ *
+ */
+
 public class Light {
 
 	
 	public void turnOn(InterfaceKitPhidget led) throws PhidgetException {
-	    Lights lights = new Lights();
-		
-		 //InterfaceKitPhidget led = new InterfaceKitPhidget();
+	     
+		 Lights lights = new Lights();
 		 System.out.println(Phidget.getLibraryVersion());
 		 attachListener(led);
 		 

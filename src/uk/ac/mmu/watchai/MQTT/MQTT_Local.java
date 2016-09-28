@@ -25,6 +25,14 @@ import uk.ac.mmu.watchai.Things.Lock;
 import uk.ac.mmu.watchai.Things.Music;
 import uk.ac.mmu.watchai.Things.Store;
 
+/**
+*@author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* Local MQTT client subscribing and publishing messages on the local network
+*/
+
 public class MQTT_Local {
 
 	 public void startMQTT(String[] args) throws PhidgetException {
@@ -39,24 +47,27 @@ public class MQTT_Local {
 		}
 		  System.out.println("MQTT: " + username);
 		 	
+		  	//Set MQTT requirements
 		    String topic        = username + "/#"; 
 		    String content      = "Hello from your Watchai Hub";
 		    int qos             = 1;
-		    String broker       = "tcp://192.168.0.19:1883";
+		    String broker       = "tcp://192.168.0.30:1883";
 		    String clientId     = "Watchai_Hub_Local";   
 		    
+		    //Lock
 		    Lock lock = new Lock();
-		    
 		    AdvancedServoPhidget servo = new AdvancedServoPhidget();
-		    
 		    lock.attachListener(servo);
 		    
+		    //Lights
 		    Lights li = new Lights();
 			InterfaceKitPhidget ifk = new InterfaceKitPhidget();
 			li.attachListener(ifk);
 			
+			//Music
 			Music music = new Music();
 			
+			//Monitor
 			Light lightSensor = new Light();
 			Temperature tempSensor = new Temperature();
 			Vibration vibSensor = new Vibration();
@@ -76,27 +87,17 @@ public class MQTT_Local {
 			String entertain = "entertain";
 			String emergency = "emergency";
 			
-         	  
-			
-		    
-	         MemoryPersistence persistence = new MemoryPersistence();
+	        MemoryPersistence persistence = new MemoryPersistence();
 	         try {
 	           MqttClient mqttClient = new MqttClient(broker, clientId, persistence);
 	           mqttClient.setCallback(new MqttCallback() {
 	             public void messageArrived(String topic, MqttMessage msg)
 	                       throws Exception {
 	            	 			
-	            	/**
-	            	 * If topic contains music: 
-	            	 */
+	            	//Gets MQTT message 
+	            	String message = new String(msg.getPayload());
 	            	 
-	            	 
-	            	 
-	            	//Light.main(args); 
-	            	 
-	            	 String message = new String(msg.getPayload());
-	            	 
-	            	 
+	            	//Checks topic and message and assigns to methods 
 	            	if(topic.contains(msc) && message.contains("Genius")){
 	            		 music.playSound("genius");
 	            	 }if(topic.contains(msc) && message.contains("Sleep")){
@@ -144,15 +145,10 @@ public class MQTT_Local {
               
                      }
 	            	
-	            	 System.out.println(topic + " this is the msg: " + message);
-	            	 
-	            	 
-	                           System.out.println("Recived:" + topic);
-	                           System.out.println("Recived:" + new String(msg.getPayload()));
-	                           
-	                          // String mssg = new String(msg.getPayload());
-	                           
-	                           }
+                     System.out.println(topic + " this is the msg: " + message); 	 
+                     System.out.println("Recived:" + topic);
+                     System.out.println("Recived:" + new String(msg.getPayload()));
+	             }
 
 	             public void deliveryComplete(IMqttDeliveryToken arg0) {
 	                         System.out.println("Delivary complete");
@@ -163,24 +159,13 @@ public class MQTT_Local {
 	                     }
 	           });
 
-	           
-	           
 	           MqttConnectOptions connOpts = new MqttConnectOptions();
 	           connOpts.setCleanSession(true);
-	           /*connOpts.setUserName("xcihlzki");
-	           connOpts.setPassword(new char[]{'7', 'w', 'p', 'h', '1', 'k', 'J', 'E', 'R', '7', 'X', 'h'});*/
-	          /* connOpts.setUserName("samo");
-	           connOpts.setPassword(new char[]{'a', 't', 'h', 'c', 'l', 'i', 'a', 't', 'h', '8'});*/
 	           mqttClient.connect(connOpts);
 	           MqttMessage message = new MqttMessage(content.getBytes());
 	           message.setQos(qos); 
 	           System.out.println("Publish message: " + message);
 	           mqttClient.subscribe(topic, qos);
-	           //mqttClient.publish(topic, message);
-	           /*mqttClient.disconnect();
-	           System.exit(0);*/
-	           
-	           
 	           
 	         } catch(MqttException me) {
 	           System.out.println("reason "+me.getReasonCode());
@@ -190,10 +175,7 @@ public class MQTT_Local {
 	           System.out.println("excep "+me);
 	           me.printStackTrace();
 	         }
-	      
-	    	 
-	    	 
-	         
+	      	         
 }
 	 
 

@@ -1,5 +1,13 @@
 package uk.ac.mmu.watchai.Model;
 
+/**
+*@author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* Thing object and properties, getters and setters.
+*/
+
 public class Thing {
 
 	private String thing;
@@ -10,6 +18,7 @@ public class Thing {
 	private String room;
 	private String topic;
 	
+	//Constructor
 	public Thing(String th, String st, String se, String ty, String zo, String ro, String to){
 		this.thing = th;
 		this.state = st;

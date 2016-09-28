@@ -13,6 +13,16 @@ import javax.jmdns.ServiceTypeListener;
 import uk.ac.mmu.watchai.Model.User;
 import uk.ac.mmu.watchai.Model.UserUtils;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * Listen for services being broadcast with
+ *
+ */
+
 public class Listen {
 
 	static JmDNS jmdns;
@@ -32,21 +42,22 @@ public class Listen {
 		String SERVICE_TYPE = "MQTT";
 	    String SERVICE_NAME = "sample_jmdns_service";
 		
+	    
+	    //Service Added
 	    public void serviceAdded(ServiceEvent event) {
 	    System.out.println("Service found : " + event.getName());
-	   
 	    System.out.println("Resolving Service...");
-
 	    user.setUserName(event.getName());
 	    System.out.println("setting un" + event.getName());
-	    
 	    jmdns.requestServiceInfo(SERVICE_TYPE, event.getName());
-	   
-	    
 	    }
+	    
+	    //Service removed
 	    public void serviceRemoved(ServiceEvent event) {
 	    System.out.println("Service removed : " + event.getName() + "." + event.getType());
 	    }
+	    
+	    //When service is resolved
 	    public void serviceResolved(ServiceEvent event) {
 	    System.out.println("Service resolved!");
 	    String[] serviceUrl = event.getInfo().getURLs();
@@ -58,15 +69,9 @@ public class Listen {
 	    System.out.println("Resolved device: " + event.getName());
 	    
 	    ready=true;
-	    
-	    
-			UserUtils.saveUser(event.getName());
-		
-	    
+	    UserUtils.saveUser(event.getName());
 	    
 	    }
-		
-	   
 
 					
     }
@@ -77,11 +82,8 @@ public class Listen {
      * @throws UnknownHostException 
      */
     public static void main(String[] args) throws UnknownHostException {
-        /*
-         * Activate these lines to see log messages of JmDNS Logger logger = Logger.getLogger(JmDNS.class.getName()); ConsoleHandler handler = new ConsoleHandler(); logger.addHandler(handler); logger.setLevel(Level.FINER);
-         * handler.setLevel(Level.FINER);
-         */
-
+    	
+    	//Set to your machines IP address
     	String ipAddress = "192.168.0.30";
         inet = InetAddress.getByName(ipAddress);
         
@@ -99,7 +101,6 @@ public class Listen {
             while ((b = System.in.read()) != -1 && (char) b != 'q') {
                 /* Stub */
             }
-           // jmdns.close();
             System.out.println("Done");
         } catch (IOException e) {
             e.printStackTrace();

@@ -25,41 +25,50 @@ import uk.ac.mmu.watchai.Things.Lock;
 import uk.ac.mmu.watchai.Things.Music;
 import uk.ac.mmu.watchai.Things.Store;
 
+/**
+*@author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* CloudMQTT Client
+*/
+
 public class MQTT {
 
 	 public void startMQTT(String[] args) throws PhidgetException {
 		 
 		 UserUtils uu = new UserUtils();
 		 
-
-		  String username = null;
-		try {
-			username = uu.getUser();
-		} catch (IOException e) {
+		 String username = null;
+		 try {
+			 username = uu.getUser();
+		 } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		 }
 		  System.out.println("MQTT un: " + username);
 		 	
+		  	//MQTT Requirements
 		    String topic        = username + "/#"; 
 		    String content      = "Hello from CloudMQTT";
 		    int qos             = 1;
 		    String broker       = "tcp://m21.cloudmqtt.com:17781";
 		    String clientId     = "Watchai_Hub_Cloud";
 
-		    
-		    Lock lock = new Lock();
-		    
+		    //Lock
+		    Lock lock = new Lock();		    
 		    AdvancedServoPhidget servo = new AdvancedServoPhidget();
-		    
 		    lock.attachListener(servo);
 		    
+		    //Lights
 		    Lights li = new Lights();
 			InterfaceKitPhidget ifk = new InterfaceKitPhidget();
 			li.attachListener(ifk);
 			
+			//Music
 			Music music = new Music();
 			
+			//Monitors
 			Light lightSensor = new Light();
 			Temperature tempSensor = new Temperature();
 			Vibration vibSensor = new Vibration();
@@ -79,10 +88,7 @@ public class MQTT {
 			String entertain = "entertain";
 			String emergency = "emergency";
 			
-			
-         	  
-			
-		    
+			//Start client
 	         MemoryPersistence persistence = new MemoryPersistence();
 	         try {
 	           MqttClient mqttClient = new MqttClient(broker, clientId, persistence);
@@ -90,9 +96,12 @@ public class MQTT {
 	             public void messageArrived(String topic, MqttMessage msg)
 	                       throws Exception {
 	            	 			
-	            	 
+	            	 //MQTT message
 	            	 String message = new String(msg.getPayload());
 			
+	            	/*
+	            	 * Sort topics and messages and call methods
+	            	 */
 	            	if(topic.contains(msc) && message.contains("genius")){
 	            		 music.playSound("genius");
 	            	}if(topic.contains(msc) && message.contains("sleep")){
@@ -158,8 +167,7 @@ public class MQTT {
 	                 System.out.println("Topic recieved:" + topic);
 	                 System.out.println("Message recieved:" + new String(msg.getPayload()));
 	     
-	                           
-	                           }
+	                }
 
 	             public void deliveryComplete(IMqttDeliveryToken arg0) {
 	                         System.out.println("Delivary complete");
@@ -171,22 +179,17 @@ public class MQTT {
 	           });
 
 	           
-	           
+	           //Sets options
 	           MqttConnectOptions connOpts = new MqttConnectOptions();
 	           connOpts.setCleanSession(true);
-	          connOpts.setUserName("xcihlzki");
+	           connOpts.setUserName("xcihlzki");
 	           connOpts.setPassword(new char[]{'7', 'w', 'p', 'h', '1', 'k', 'J', 'E', 'R', '7', 'X', 'h'});
 	           mqttClient.connect(connOpts);
 	           MqttMessage message = new MqttMessage(content.getBytes());
 	           message.setQos(qos); 
 	           System.out.println("Publish message: " + message);
 	           mqttClient.subscribe(topic, qos);
-	           //mqttClient.publish(topic, message);
-	           /*mqttClient.disconnect();
-	           System.exit(0);*/
-	           
-	           
-	           
+
 	         } catch(MqttException me) {
 	           System.out.println("reason "+me.getReasonCode());
 	           System.out.println("msg "+me.getMessage());
@@ -195,10 +198,7 @@ public class MQTT {
 	           System.out.println("excep "+me);
 	           me.printStackTrace();
 	         }
-	      
-	    	 
-	    	 
-	         
+	       
 }
 	 
 

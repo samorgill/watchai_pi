@@ -18,6 +18,16 @@ import com.phidgets.event.SensorChangeListener;
 
 import uk.ac.mmu.watchai.Things.Music;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * Vibration sensor
+ *
+ */
+
 public class Vibration {
 
 	Music music = new Music();

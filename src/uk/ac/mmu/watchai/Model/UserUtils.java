@@ -8,11 +8,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+*@author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* Utilities for persisting the data locally once recieved from the device
+*/
+
 public class UserUtils {
 
 	public static void saveUser (String username) {
-		
-
 		
 		String usr = username;
 		
@@ -58,9 +64,6 @@ public class UserUtils {
 				
 				System.out.println("un = line: " + username);
 			}
-		
-			//System.out.println(line);
-			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

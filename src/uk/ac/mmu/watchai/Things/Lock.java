@@ -17,6 +17,16 @@ import com.phidgets.event.SensorChangeListener;
 import com.phidgets.event.ServoPositionChangeEvent;
 import com.phidgets.event.ServoPositionChangeListener;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * Controlling clocks/motor
+ *
+ */
+
 public class Lock {
 
 	public void locks(String[] args) throws PhidgetException {
@@ -33,8 +43,6 @@ public class Lock {
 		{
 			public void servoPositionChanged(ServoPositionChangeEvent oe)
 			{
-				// 
-				// System.out.println(oe);
 			}
 		});
 		
@@ -50,12 +58,8 @@ public class Lock {
 		System.out.println("Max speed: " + servo.getAccelerationMax(0));
 
 		 servo.setEngaged(MOTOR_PORT, true);
-		 
 		 servo.setPosition(0, 50);
-		 
 
-			
-			
 	     }
 
 	/**
@@ -92,7 +96,9 @@ public class Lock {
 	}
 	
 		
-	
+	/**
+	 * Attach attachListener and openAny().
+	 */
 
 	public void attachListener(AdvancedServoPhidget servo) throws PhidgetException{
 		servo.addAttachListener(new AttachListener() {

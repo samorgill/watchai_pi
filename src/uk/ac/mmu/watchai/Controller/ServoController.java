@@ -14,20 +14,18 @@ import com.phidgets.event.ErrorListener;
 import com.phidgets.event.ServoPositionChangeEvent;
 import com.phidgets.event.ServoPositionChangeListener;
 
+/**
+* @author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* A test controller for the servo motor
+*/
+
 public class ServoController {
 
 	public static void main(String[] args) throws PhidgetException {
-		// TODO Auto-generated method stub
-
-		Lock lock = new Lock();
-	   /* AdvancedServoPhidget servo = new AdvancedServoPhidget();
-	    lock.attachListener(servo);
-	    lock.unlock(servo);
-	    
-		servo.openAny();
-		servo.setPosition(0, 110);*/
-	
-		// TODO Auto-generated method stub
+		
 
 				final int MOTOR_PORT=0;
 				AdvancedServoPhidget servo; 
@@ -40,13 +38,9 @@ public class ServoController {
 				{
 					public void servoPositionChanged(ServoPositionChangeEvent oe)
 					{
-						// 
-						// System.out.println(oe);
 					}
 				});
-				
-				
-
+		
 				servo.openAny();
 				System.out.println("waiting for AdvancedServo attachment...");
 				servo.waitForAttachment();
@@ -59,10 +53,7 @@ public class ServoController {
 				 servo.setEngaged(MOTOR_PORT, true);
 				 
 				 servo.setPosition(0, 50);
-				 
-
-					
-					
+							
 			     }
 	
 	public static void attachListener(AdvancedServoPhidget servo) throws PhidgetException{

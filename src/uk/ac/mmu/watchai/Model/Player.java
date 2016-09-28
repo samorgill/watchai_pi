@@ -4,6 +4,14 @@ import java.io.File;
 
 import jaco.mp3.player.MP3Player;
 
+/**
+*@author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* Music player
+*/
+
 public class Player {
 
 	private MP3Player mp3;

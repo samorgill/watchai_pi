@@ -8,6 +8,9 @@ import uk.ac.mmu.watchai.Model.Thing;
 /**
  * 
  * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
  * Store class to store Things from the database and match them against
  * attached sensors & actuators.
  *
@@ -22,27 +25,29 @@ public class Store {
 	
 	// Constructor
 	public Store(){
-	//	list = new Thing[tot];
 		aList = new ArrayList<Thing>();
 		total = 0;
-		
 	}
 
+	
+	//Returns index of searched for thing
 	private int search(String nameIn){
 		for(int i = 0; i < total; i++){
 			Thing tempThing = aList.get(i);
 			String tempName = tempThing.getThing();
 			if(tempName.equals(nameIn)){
-				return i; // returns the index no
+				return i; 
 			}
 		}
 		return -999;
 	}
 	
+	//Gets total stored
 	public int getTotal() {
 		return total;
 	}
 	
+	//Check if list is empty
 	public boolean isEmpty(){
 		if(total == 0){
 			return true;
@@ -51,6 +56,7 @@ public class Store {
 		}
 	}
 	
+	//Check if list is full
 	public boolean isFull(){
 		if(total == aList.size()){
 			return true;
@@ -59,16 +65,19 @@ public class Store {
 		}
 	}
 	
+	
+	/**
+	 * Add thing to list
+	 * @param thingIn
+	 */
 	public void add(Thing thingIn){
-		
-		
-			//System.out.println("Added in Store: " + thingIn);
-			//list[total] = thingIn; //add item
 			aList.add(thingIn);
-			total++; //increment list
-			
+			total++; //increment list	
 	}
 	
+	/**
+	 * Get all from list
+	 */
 	public void getAll(){
 		for(int i = 0; i < aList.size(); i++){
 			Thing th = aList.get(i);
@@ -76,6 +85,10 @@ public class Store {
 		}
 	}
 	
+	/**
+	 * Array of thing objects stored
+	 * @return
+	 */
 	public static ArrayList<Thing> getAllList(){
 		
 		ArrayList<Thing> dList = new ArrayList<Thing>();

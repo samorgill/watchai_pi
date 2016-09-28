@@ -6,6 +6,16 @@ import com.phidgets.InterfaceKitPhidget;
 import com.phidgets.Phidget;
 import com.phidgets.PhidgetException;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * A class for a new thing attached
+ *
+ */
+
 public class NewThing {
 	
 	

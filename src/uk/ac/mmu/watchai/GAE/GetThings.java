@@ -15,42 +15,42 @@ import uk.ac.mmu.watchai.Model.Thing;
 import uk.ac.mmu.watchai.Model.UserUtils;
 import uk.ac.mmu.watchai.Things.Store;
 
+/**
+*@author Samuel Orgill 15118305
+* NW5 Smartwatch Control of Environment
+* September 2016
+* 
+* Gets all users things from the database
+*/
 
 public class GetThings {
 
 	public static String serverURL =
             "http://3-dot-projectbabywatch.appspot.com/";
 	
-	
-	 public void getDB() throws IOException{
-		  
+	 public void getDB() throws IOException{	  
 
 		  String serverURL =
 		            "http://3-dot-projectbabywatch.appspot.com/";
 			
-			UserUtils uu = new UserUtils();
+		  UserUtils uu = new UserUtils();
 			
-			String usrName = uu.getUser();
-		  
+		  String usrName = uu.getUser();
 		  Store st = new Store();
-		   
-			//usrName = "SamHome";
-				
-			System.out.println("Gettings things...");
+		  System.out.println("Gettings things...");
 			
-			JSONObject jObject = new JSONObject();
+		  JSONObject jObject = new JSONObject();
 
 	      String fullURLStr = serverURL + "GetAllThings?user3=" + usrName;
 	      System.out.println("GetAll url" + fullURLStr);
 	      JSONArray jArray = getFromServer(fullURLStr);
 
-	     String thing, state, serial, type, zone, room, topic;
-
+	      String thing, state, serial, type, zone, room, topic;
+	      
+	      // Get properties from the JSON object
 	      try {
 	          for (int i = 0; i < jArray.length(); i++) {
 	              jObject = jArray.getJSONObject(i);
-	              
-	              
 
 	                  thing = jObject.get("thing").toString();
 	                  state = jObject.get("state").toString();
@@ -58,12 +58,11 @@ public class GetThings {
 	                  type = jObject.get("type").toString();
 	                  zone = jObject.get("zone").toString();
 	                  room = jObject.get("room").toString();
-
 	                  
 	                  topic = usrName+"/"+type+"/"+zone+"/"+room+"/"+thing;
 	                 
-	                 Thing thin = new Thing(thing, state, serial, type, zone, room, topic);
-	                 
+	                  Thing thin = new Thing(thing, state, serial, type, zone, room, topic);
+	                  //Add thing to local store
 	                  st.add(thin);
 	            
 	          }
@@ -73,6 +72,11 @@ public class GetThings {
 		  
 	  }
 	
+	 	/**
+	 	 * Gets data from server
+	 	 * @param urlStr
+	 	 * @return
+	 	 */
 		public JSONArray getFromServer(String urlStr){
 	        URL url;
 	        HttpURLConnection conn;
@@ -91,15 +95,13 @@ public class GetThings {
 	            url = new URL(urlStr);
 	            conn = (HttpURLConnection) url.openConnection();
 	            conn.setRequestMethod("GET");
-	            // Issue the GET to send the data
+	           
 	            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	            // read the result to process response and ensure data sent
-
+	           
 	            StringBuilder sb = new StringBuilder();
 	            while ((line = rd.readLine()) != null) {
 
 	                sb.append(line);
-
 
 	            }
 	            rd.close();
@@ -113,7 +115,6 @@ public class GetThings {
 
 	                jAr.put(jObject.get("propertyMap"));
 
-
 	            }
 
 
@@ -124,7 +125,6 @@ public class GetThings {
 	            for (int j = 0; j < jAr.length(); j++) {
 	                jOb = jAr.getJSONObject(j);
 	                jArr.put(jOb);
-	                // System.out.println(jOb.get("doorName") + " is " + jOb.get("state"));
 	            }
 	        }catch (Exception e){
 	            e.printStackTrace();
@@ -132,6 +132,5 @@ public class GetThings {
 
 	        return jArr;
 	    }
-    
-	
+    	
 }

@@ -11,6 +11,16 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import com.phidgets.*;
 import com.phidgets.event.*;
 
+/**
+ * 
+ * @author Samuel Orgill 15118305
+ * NW5 Smartwatch Control of Environment
+ * September 2016
+ * 
+ * LEDs simulating lights
+ *
+ */
+
 public class Lights {
 	
 	InterfaceKitPhidget led;
